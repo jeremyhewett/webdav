@@ -57,7 +57,7 @@ Fs.readdirSync(__dirname + "/plugins").forEach(function(filename){
 /**
  * jsDAV version number
  */
-exports.VERSION = JSON.parse(Fs.readFileSync(__dirname + "/../../package.json")).version;
+exports.VERSION = 'DEV';
 
 function Server(options) {
     /**
@@ -301,9 +301,9 @@ exports.createServer = function(options, port, host) {
     host = host || exports.DEFAULT_HOST;
 
     var server = new Server(options);
-    /*server.listen(port, host, function() {
+    server.listen(port, host, function() {
         Util.log("jsDAV server running on http://" + host + ":" + port);
-    });*/
+    });
     return server;
 };
 

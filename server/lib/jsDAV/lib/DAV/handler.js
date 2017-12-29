@@ -17,7 +17,7 @@ var jsDAV_Property_SupportedReportSet = require("./property/supportedReportSet")
 // interfaces to check for:
 var jsDAV_iFile = require("./interfaces/iFile");
 var jsDAV_iCollection = require("./interfaces/iCollection");
-var jsDAV_iExtendedCollection = require("./interfaces/iExtendedCollection")
+var jsDAV_iExtendedCollection = require("./interfaces/iExtendedCollection");
 var jsDAV_iQuota = require("./interfaces/iQuota");
 var jsDAV_iProperties = require("./interfaces/iProperties");
 

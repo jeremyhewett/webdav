@@ -1,6 +1,6 @@
-const jsDAV = require("jsDAV/lib/jsdav");
-const jsDAV_Server = require("jsDAV/lib/DAV/server");
-const jsDAV_Locks_Backend_FS = require("jsDAV/lib/DAV/plugins/locks/fs");
+const jsDAV = require("./lib/jsDAV/lib/jsdav");
+const jsDAV_Server = require("./lib/jsDAV/lib/DAV/server");
+const jsDAV_Locks_Backend_FS = require("./lib/jsDAV/lib/DAV/plugins/locks/fs");
 const cookieAuthBackend = require('./cookieAuthBackend');
 const fs = require('fs');
 const path = require('path');
@@ -14,10 +14,6 @@ const locksPath = './samples/locks';
 
 // setting debugMode to TRUE outputs a LOT of information to console
 jsDAV.debugMode = true;
-
-if (jsDAV.debugMode) {
-  console.log('WebDav: Starting server, version: %s', jsDAV_Server.VERSION);
-}
 
 //create HTTP and HTTPS server
 let server = null;
@@ -50,7 +46,7 @@ server.addListener("request", function(req, res) {
 });
 
 //create webdav server
-const webdav = jsDAV.createServer({
+const webdav = jsDAV.mount({
   node: nodePath,
   authBackend: cookieAuthBackend.new(),
   locksBackend: jsDAV_Locks_Backend_FS.new(locksPath),

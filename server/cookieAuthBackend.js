@@ -1,8 +1,8 @@
 "use strict";
 
 const Cookies = require( "cookies" );
-const jsDAV_Auth_iBackend = require("jsDAV/lib/DAV/plugins/auth/iBackend");
-const Exc = require("jsDAV/lib/shared/exceptions");
+const jsDAV_Auth_iBackend = require("./lib/jsDAV/lib/DAV/plugins/auth/iBackend");
+const Exc = require("./lib/jsDAV/lib/shared/exceptions");
 const { URL } = require('url');
 
 module.exports = jsDAV_Auth_iBackend.extend({
@@ -36,19 +36,14 @@ module.exports = jsDAV_Auth_iBackend.extend({
     let req = handler.httpRequest;
     let res = handler.httpResponse;
     if (req.token && this.tokens[req.token]) {
-      if (req.method.toUpperCase() === 'GET') {
-        let username = this.tokens[req.token];
-        let cookie = this.createCookie(username);
-        let cookies = new Cookies(req, res);
-        cookies.set('user-token', cookie, {
-          expires: new Date(Date.now() + 9999999),
-          overwrite: true
-        });
-        //res.setHeader('Set-Cookie', `user-token=${token}; Expires=Wed, 30 Aug 2019 00:00:00 GMT`);
-        //req. Set-Cookie: user-token=219ffwef9w0f; Domain=somecompany.co.uk; Path=/; Expires=Wed, 30 Aug 2019 00:00:00 GMT
-        //global.token = token;
-        delete this.tokens[req.token];
-      }
+      let username = this.tokens[req.token];
+      let cookie = this.createCookie(username);
+      let cookies = new Cookies(req, res);
+      cookies.set('user-token', cookie, {
+        expires: new Date(Date.now() + 9999999),
+        overwrite: true
+      });
+      delete this.tokens[req.token];
       callback(null, true);
     } else {
       if (!(err instanceof Exc.jsDAV_Exception))
