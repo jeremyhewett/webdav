@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/jeremyhewett/webdav#readme",
   "dependencies": {
+    "cookies": "^0.7.1",
     "express": "^4.16.2",
     "jsDAV": "^0.3.4",
     "on-headers": "^1.0.1",
