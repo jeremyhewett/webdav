@@ -110,7 +110,7 @@ exports.trim = function(str, charlist) {
  *     returns 1: '    Kevin van Zonneveld'
  */
 exports.rtrim = function(str, charlist) {
-    charlist = !charlist ? " \\s\u00A0" : (charlist+"").replace(/([\[\]\(\)\.\?\/\*\{\}\+\$\^\:])/g, "\\$1");
+    charlist = !charlist ? " \\s\u00A0" : (charlist+"").replace(/([\\\[\]\(\)\.\?\/\*\{\}\+\$\^\:])/g, "\\$1");
     var re = new RegExp("[" + charlist + "]+$", "g");
     return (str+"").replace(re, "");
 };
