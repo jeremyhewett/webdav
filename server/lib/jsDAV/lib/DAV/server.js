@@ -157,6 +157,12 @@ function Server(options) {
 
             options.server.addListener("request", function(req, resp) {
                 var path = Url.parse(req.url).pathname;
+                let tokenMatch = path.match(/token\/([a-zA-Z0-9]+)\//);
+                if (tokenMatch) {
+                    req.token = tokenMatch[1];
+                    req.url = req.url.replace(`token/${req.token}/`, '');
+                    path = Url.parse(req.url).pathname;
+                }
                 if (path.charAt(path.length - 1) != "/")
                     path = path + "/";
                 if (path.indexOf(self.baseUri) === 0) {
@@ -295,9 +301,9 @@ exports.createServer = function(options, port, host) {
     host = host || exports.DEFAULT_HOST;
 
     var server = new Server(options);
-    server.listen(port, host, function() {
+    /*server.listen(port, host, function() {
         Util.log("jsDAV server running on http://" + host + ":" + port);
-    });
+    });*/
     return server;
 };
 
