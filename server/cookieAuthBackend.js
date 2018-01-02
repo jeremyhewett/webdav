@@ -3,7 +3,6 @@
 const Cookies = require( "cookies" );
 const jsDAV_Auth_iBackend = require("./lib/jsDAV/lib/DAV/plugins/auth/iBackend");
 const Exc = require("./lib/jsDAV/lib/shared/exceptions");
-const { URL } = require('url');
 
 module.exports = jsDAV_Auth_iBackend.extend({
   tokens: {
