@@ -35,15 +35,15 @@ module.exports = jsDAV_Auth_iBackend.extend({
   requireAuth: function(handler, err, callback) {
     let req = handler.httpRequest;
     let res = handler.httpResponse;
-    if (req.token && this.tokens[req.token]) {
-      let username = this.tokens[req.token];
+    if (req.params.token && this.tokens[req.params.token]) {
+      let username = this.tokens[req.params.token];
       let cookie = this.createCookie(username);
       let cookies = new Cookies(req, res);
       cookies.set('user-token', cookie, {
         expires: new Date(Date.now() + 9999999),
         overwrite: true
       });
-      delete this.tokens[req.token];
+      delete this.tokens[req.params.token];
       callback(null, true);
     } else {
       if (!(err instanceof Exc.jsDAV_Exception))

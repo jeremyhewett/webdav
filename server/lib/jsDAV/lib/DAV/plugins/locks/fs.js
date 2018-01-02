@@ -23,7 +23,7 @@ var Util = require("./../../../shared/util");
  */
 var jsDAV_Locks_Backend_FS = module.exports = Base.extend({
     initialize: function(dataDir) {
-        this.dataDir = dataDir || jsDAV_Server.DEFAULT_TMPDIR + "/jsdav";
+        this.dataDir = dataDir;
         // ensure that the path is there
         Async.makePath(this.dataDir, function() {});
     },

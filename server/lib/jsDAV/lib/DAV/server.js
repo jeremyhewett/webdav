@@ -142,7 +142,7 @@ function Server(options) {
 
     this.tmpDir = (options.tmpDir || exports.DEFAULT_TMPDIR).replace(/\/+$/, "");
 
-    if (options.server && options.mount) { //use an existing server object
+    if (options.mount) { //use an existing server object
         var self = this;
         this.sandboxed = typeof options.sandboxed != "undefined"
             ? options.sandboxed
@@ -157,12 +157,6 @@ function Server(options) {
 
             options.server.addListener("request", function(req, resp) {
                 var path = Url.parse(req.url).pathname;
-                let tokenMatch = path.match(/token\/([a-zA-Z0-9]+)\//);
-                if (tokenMatch) {
-                    req.token = tokenMatch[1];
-                    req.url = req.url.replace(`token/${req.token}/`, '');
-                    path = Url.parse(req.url).pathname;
-                }
                 if (path.charAt(path.length - 1) != "/")
                     path = path + "/";
                 if (path.indexOf(self.baseUri) === 0) {
