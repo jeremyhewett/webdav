@@ -2,9 +2,9 @@
   "name": "webdav",
   "version": "1.0.0",
   "description": "A serving allowing editing of MS Word documents",
-  "main": "src/index.js",
+  "main": "server/index.js",
   "scripts": {
-    "start": "node ./src/index.js"
+    "start": "node ./server/index.js"
   },
   "repository": {
     "type": "git",
@@ -17,11 +17,11 @@
   },
   "homepage": "https://github.com/jeremyhewett/webdav#readme",
   "dependencies": {
-    "cookies": "^0.7.1",
+    "angularjs": "0.0.1",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "jsDAV": "^0.3.4",
     "lodash": "^4.17.4",
-    "on-headers": "^1.0.1",
-    "webdav-server": "^2.3.13"
+    "on-headers": "^1.0.1"
   }
 }
