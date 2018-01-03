@@ -25,16 +25,16 @@ let app = express();
 app.use(requestLogger);
 app.use(responseLogger);
 app.use(cookieParser());
-app.all('/dav/token/:token/*', davHandler);
+app.all('/dav/:token/*', davHandler);
 app.get('/api/files', getFiles);
-app.get('/api/token', getToken);
+app.get('/api/token/:fileName', getToken);
 app.get('*', express.static('client'));
 app.listen(9000, () => {
   console.log("Server listening on port 9000")
 });
 
 function davHandler(req, res) {
-  req.url = req.url.replace(new RegExp(`/token/${req.params.token}`), '');
+  req.url = req.url.replace(new RegExp(`/dav/${req.params.token}`), '/dav');
   davServer.exec.apply(davServer, [req, res]);
 }
 
@@ -49,7 +49,7 @@ function getFiles(req, res) {
 
 function getToken(req, res) {
   let username = `user_${Math.floor(Math.random() * 1000).toString()}`;
-  let token = authBackend.generateToken(username);
+  let token = authBackend.generateToken(username, req.params.fileName);
   res.send(token);
 }
 

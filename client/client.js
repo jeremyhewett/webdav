@@ -14,12 +14,12 @@ angular.module('app', []).controller('filesController', ($http, $scope) => {
     });
   }
 
-  getToken = () => $http.get('api/token').then(({ data: token }) => token);
+  getToken = (fileName) => $http.get(`api/token/${fileName}`).then(({ data: token }) => token);
 
   $scope.openFile = (fileName) => {
-    getToken().then(token => {
+    getToken(fileName).then(token => {
       let ext = fileName.substr(fileName.lastIndexOf('.'));
-      let href = `${appByExtension[ext]}:ofe|u|${window.location.origin}/dav/token/${token}/${fileName}`;
+      let href = `${appByExtension[ext]}:ofe|u|${window.location.origin}/dav/${token}/${fileName}`;
       let link = angular.element(`<a href="${href}">`);
       link[0].click();
     });

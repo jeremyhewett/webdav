@@ -1,5 +1,5 @@
 "use strict";
-
+const crypto = require('crypto');
 const jsDAV_Auth_iBackend = require("./lib/jsDAV/lib/DAV/plugins/auth/iBackend");
 const Exc = require("./lib/jsDAV/lib/shared/exceptions");
 
@@ -9,8 +9,10 @@ module.exports = jsDAV_Auth_iBackend.extend({
 
   currentUser: null,
 
-  generateToken: function(username) {
-    let token = Math.floor(Math.random() * 1000).toString();
+  generateToken: function(username, file) {
+    let hash = crypto.createHash('sha256');
+    hash.update(file);
+    let token = hash.digest('hex');
     this.tokens[token] = username;
     return token;
   },
