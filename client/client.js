@@ -1,6 +1,6 @@
-angular.module('app', []).controller('filesController', ($http, $scope) => {
+angular.module('app', []).controller('filesController', function($http, $scope) {
 
-  const appByExtension = {
+  var appByExtension = {
     '.doc': 'ms-word',
     '.docx': 'ms-word',
     '.xls': 'ms-excel',
@@ -9,18 +9,22 @@ angular.module('app', []).controller('filesController', ($http, $scope) => {
   };
 
   function init() {
-    $http.get('api/files').then(({ data: files }) => {
-      $scope.files = files;
+    $http.get('api/files').then(function(response) {
+      $scope.files = response.data;
     });
   }
 
-  getToken = (fileName) => $http.get(`api/token/${fileName}`).then(({ data: token }) => token);
+  function getToken(fileName) {
+    return $http.get('api/token/' + fileName + '}').then(function(response) {
+      return response.data;
+    });
+  }
 
-  $scope.openFile = (fileName) => {
-    getToken(fileName).then(token => {
-      let ext = fileName.substr(fileName.lastIndexOf('.'));
-      let href = `${appByExtension[ext]}:ofe|u|${window.location.origin}/dav/${token}/${fileName}`;
-      let link = angular.element(`<a href="${href}">`);
+  $scope.openFile = function(fileName) {
+    getToken(fileName).then(function(token) {
+      var ext = fileName.substr(fileName.lastIndexOf('.'));
+      var href = appByExtension[ext] + ':ofe|u|' + window.location.origin + '/dav/' + token + '/' + fileName;
+      var link = angular.element('<a href="' + href + '">');
       link[0].click();
     });
   };
