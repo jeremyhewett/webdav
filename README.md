@@ -1,2 +1,2 @@
 # webdav
-A serving allowing editing of MS Word documents
+A server allowing editing of MS Word documents
