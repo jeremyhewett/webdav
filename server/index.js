@@ -9,6 +9,10 @@ const onHeaders = require('on-headers');
 const nodePath = './server/data/files';
 const locksPath = './server/data/locks';
 
+if (!fs.existsSync(locksPath)){
+  fs.mkdirSync(locksPath);
+}
+
 jsDAV.debugMode = true;
 
 const authBackend = cookieAuthBackend.new();
