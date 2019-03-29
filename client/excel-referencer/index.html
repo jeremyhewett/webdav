@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WebDav Server</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
+</head>
+<body ng-app="app">
+  <div ng-controller="referenceController">
+    <h3>Reference Excel</h3>
+    <div ng-repeat="file in files">
+      <a href ng-click="addReference(file)">{{file}}</a>
+    </div>
+    <h5>References</h5>
+    <ul>
+      <li ng-repeat="ref in references">
+        <a href ng-click="openReference(ref)">{{toViewModel(ref)}}</a>
+      </li>
+    </ul>
+  </div>
+  <script src="../client.js"></script>
+  <script src="referenceController.js"></script>
+</body>
+</html>
